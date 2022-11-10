@@ -10,6 +10,9 @@ btn.addEventListener("click", (e) => {
     e.preventDefault();
 });
 
+dob.addEventListener("change", () => console.log(dob.value))
+firstName.addEventListener("keyup", () => {console.log(localStorage.getItem("dob"))})
+
 validateField(
     firstName, 
     document.querySelector(".fn-container"),
@@ -39,3 +42,20 @@ validateField(
     "warning-text3",
     "Maximum of 35 characters allowed"
 );
+
+saveFields(
+    [firstName, lastName, address, notes], 
+    "keyup", 
+    ["firstName", "lastName", "address", "notes"]
+    );
+
+saveFields(
+    [dob, sex],
+    "change",
+    ["dob", "sex"]
+);    
+
+loadFields(
+    [firstName, lastName, address, dob, sex, notes], 
+    ["firstName", "lastName", "address", "dob", "sex", "notes"]
+    );    

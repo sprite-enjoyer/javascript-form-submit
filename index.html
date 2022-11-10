@@ -11,32 +11,39 @@
 </head>
 <body>
 
-    <form class="form-container input-wrapper">
-        <div class="fn-container input-wrapper" >   
-            <input class="txt fn form-element" type="text" placeholder="First Name" required>
+    <div class="wrapper">
+        <form class="form-container input-wrapper">
+            <div class="fn-container input-wrapper" >   
+                <input class="txt fn form-element" type="text" placeholder="First Name" required>
+            </div>
+            <div class="ln-container input-wrapper" >
+                <input class="txt ln form-element" type="text" placeholder="Last Name" required>
+            </div>
+            <div class="address-container input-wrapper" >
+                <input class="txt address form-element" type="text" placeholder="Address" required>
+            </div>
+            <div class="calendar-container input-wrapper" >
+                <input class="calendar form-element" type="date">
+            </div>
+            <div class="dropdown-container input-wrapper" >
+                <select class="dropdown form-element" name="sex">
+                    <option value="none" >Sex</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+            
+            <textarea class="notes" ></textarea>
+            <button class="btn" >
+                Submit
+            </button>
+        </form>
+
+        <div class="table" >
+            
         </div>
-        <div class="ln-container input-wrapper" >
-            <input class="txt ln form-element" type="text" placeholder="Last Name" required>
-        </div>
-        <div class="address-container input-wrapper" >
-            <input class="txt address form-element" type="text" placeholder="Address" required>
-        </div>
-        <div class="calendar-container input-wrapper" >
-            <input class="calendar form-element" type="date">
-        </div>
-        <div class="dropdown-container input-wrapper" >
-            <select class="dropdown form-element" name="sex">
-                <option value="none" >Sex</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-            </select>
-        </div>
-        
-        <textarea class="notes" ></textarea>
-        <button class="btn" >
-            Submit
-        </button>
-    </form>
+    </div>
+
 
 </body>
 <script type="module" src="./script.js"></script>

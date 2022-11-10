@@ -25,3 +25,15 @@ const validateField = (
         }
     });
 }
+
+const saveFields = (fieldNodes, saveOnEvent, keys) => {
+    fieldNodes.forEach((node, i) => {
+        node.addEventListener(saveOnEvent, () => localStorage.setItem(keys[i], node.value));
+    });
+}
+
+const loadFields = (fieldNodes, keys) => {
+    keys.forEach((key, i) => {
+        fieldNodes[i].value = localStorage.getItem(key);
+    })
+}
