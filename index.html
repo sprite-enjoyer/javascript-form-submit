@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <title>Form</title>
+    <script src="scripts/validators.js" ></script>
+    <script src="scripts/functions.js" ></script>
+</head>
+<body>
+
+    <form class="form-container input-wrapper">
+        <div class="fn-container input-wrapper" >   
+            <input class="txt fn form-element" type="text" placeholder="First Name" required>
+        </div>
+        <div class="ln-container input-wrapper" >
+            <input class="txt ln form-element" type="text" placeholder="Last Name" required>
+        </div>
+        <div class="address-container input-wrapper" >
+            <input class="txt address form-element" type="text" placeholder="Address" required>
+        </div>
+        <div class="calendar-container input-wrapper" >
+            <input class="calendar form-element" type="date">
+        </div>
+        <div class="dropdown-container input-wrapper" >
+            <select class="dropdown form-element" name="sex">
+                <option value="none" >Sex</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+        </div>
+        
+        <textarea class="notes" ></textarea>
+        <button class="btn" >
+            Submit
+        </button>
+    </form>
+
+</body>
+<script type="module" src="./script.js"></script>
+</html>
