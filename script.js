@@ -25,6 +25,18 @@ btn.addEventListener("click", (e) => {
     if (!localStorage.getItem("index")) localStorage.setItem("index", "-1");
     localStorage.setItem("index", (parseInt(localStorage.getItem("index")) + 1).toString());
 
+    const objToSave = {
+        index: parseInt(localStorage.getItem("index")),
+        name: fn,
+        last: ln,
+        adrss: ad,
+        dateOB: date,
+        gender: sx,
+        comment: note,
+    }
+
+    localStorage.setItem(localStorage.getItem("index").concat("-data"), JSON.stringify(objToSave));
+
     row.addEventListener("click", () => {
         const popup = document.querySelector(".popup");
         const noteContainer = document.querySelector(".note-container");
@@ -43,13 +55,6 @@ btn.addEventListener("click", (e) => {
         noteContainer.style.visibility = "visible";
     });
 
-    const popup = document.querySelector(".popup");
-    popup.addEventListener("keyup", (e) => {
-        console.log("here")
-        if (e.key === "Escape") console.log("escape pressed")
-    })
-
-
     let cell = row.insertCell(0);
     let text = document.createTextNode(localStorage.getItem("index"));
     cell.appendChild(text);
@@ -58,7 +63,7 @@ btn.addEventListener("click", (e) => {
         cell = row.insertCell(i + 1);
         text = document.createTextNode(element);
         cell.appendChild(text);
-    })
+    });
 
 });
 
@@ -109,3 +114,4 @@ saveFields(
     ["dob", "sex"]
 );    
 
+loadTableData();
