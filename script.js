@@ -9,7 +9,17 @@ const table = document.querySelector(".table");
 
 btn.addEventListener("click", (e) => {
     e.preventDefault();
-    addRow(null, firstName.value, lastName.value, address.value, dob.value, sex.value, notes.value, table, true);
+    addRow(
+        null, 
+        firstName.value, 
+        lastName.value, 
+        address.value, 
+        dob.value, 
+        sex.value, 
+        notes.value, 
+        table, 
+        true
+        );
 });
 
 validateField(

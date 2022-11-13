@@ -24,19 +24,19 @@ const validateField = (
             document.querySelector(".".concat(warningNodeClassName)).remove();
         }
     });
-}
+};
 
 const saveFields = (fieldNodes, saveOnEvent, keys) => {
     fieldNodes.forEach((node, i) => {
         node.addEventListener(saveOnEvent, () => localStorage.setItem(keys[i], node.value));
     });
-}
+};
 
 const loadFields = (fieldNodes, keys) => {
     keys.forEach((key, i) => {
         fieldNodes[i].value = localStorage.getItem(key);
     })
-}
+};
 
 const addRow = (i, fn, ln, ad, date, sx, note, table, incrementIndex) => {
 
@@ -62,7 +62,8 @@ const addRow = (i, fn, ln, ad, date, sx, note, table, incrementIndex) => {
         localStorage.setItem(localStorage.getItem("index").concat("-data"), JSON.stringify(objToSave));
     }
 
-    row.addEventListener("click", () => {
+    row.addEventListener("click", (e) => {
+        if (e.target === button) return;
         const popup = document.querySelector(".popup");
         const noteContainer = document.querySelector(".note-container");
         const textContainer = document.querySelector(".text-container");
@@ -81,8 +82,9 @@ const addRow = (i, fn, ln, ad, date, sx, note, table, incrementIndex) => {
         noteContainer.style.visibility = "visible";
     });
 
+    const index = incrementIndex ? parseInt(localStorage.getItem("index")) : i;
     let cell = row.insertCell(0);
-    let text = document.createTextNode(incrementIndex ? parseInt(localStorage.getItem("index")) : i);
+    let text = document.createTextNode(index);
     cell.appendChild(text);
 
     [fn, ln, ad, date, sx].forEach((element, i) => {
@@ -91,7 +93,24 @@ const addRow = (i, fn, ln, ad, date, sx, note, table, incrementIndex) => {
         cell.appendChild(text);
     });
 
-}
+    cell = row.insertCell(6);
+    const button = document.createElement("button");
+    button.style.cursor = "pointer";
+    button.style.borderRadius = "5px";
+    button.style.border = "1px solid black";
+    button.style.width = "23px";
+    button.style.height = "23px";
+
+    text = document.createTextNode("X");
+    button.appendChild(text);
+    cell.appendChild(button);
+
+    button.addEventListener("click", () => {
+        localStorage.removeItem(index.toString().concat("-data"));
+        row.remove();
+    });
+
+};
 
 const loadTableData = () => {
     const dataList = []; 
@@ -99,9 +118,10 @@ const loadTableData = () => {
         const item = localStorage.getItem(i.toString().concat("-data"));
         if (item) dataList.push(JSON.parse(item));
     }
-    dataList.forEach((obj, i) => 
+
+    dataList.forEach(obj => 
         addRow(
-            i, 
+            obj.index, 
             obj.name, 
             obj.last, 
             obj.adrss, 
