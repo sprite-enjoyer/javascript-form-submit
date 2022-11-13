@@ -68,7 +68,8 @@ const addRow = (i, fn, ln, ad, date, sx, note, table, incrementIndex) => {
         const noteContainer = document.querySelector(".note-container");
         const textContainer = document.querySelector(".text-container");
         const textNode = document.createTextNode(note);
-        
+        textContainer.style.color = "white";
+
         if (noteContainer.childElementCount <= 2) textContainer.replaceChild(textNode, textContainer.firstChild);
 
         const btn = document.querySelector(".popup-btn");
@@ -95,11 +96,14 @@ const addRow = (i, fn, ln, ad, date, sx, note, table, incrementIndex) => {
 
     cell = row.insertCell(6);
     const button = document.createElement("button");
+    button.className = "button btn-danger";
     button.style.cursor = "pointer";
-    button.style.borderRadius = "5px";
-    button.style.border = "1px solid black";
-    button.style.width = "23px";
-    button.style.height = "23px";
+    button.style.width = "25px";
+    button.style.height = "25px";
+    button.style.display = "flex";
+    button.style.justifyContent = "center";
+    button.style.alignItems = "center";
+
 
     text = document.createTextNode("X");
     button.appendChild(text);
