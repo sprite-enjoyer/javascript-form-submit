@@ -104,7 +104,6 @@ const addRow = (i, fn, ln, ad, date, sx, note, table, incrementIndex) => {
     button.style.justifyContent = "center";
     button.style.alignItems = "center";
 
-
     text = document.createTextNode("X");
     button.appendChild(text);
     cell.appendChild(button);
@@ -113,7 +112,6 @@ const addRow = (i, fn, ln, ad, date, sx, note, table, incrementIndex) => {
         localStorage.removeItem(index.toString().concat("-data"));
         row.remove();
     });
-
 };
 
 const loadTableData = () => {
