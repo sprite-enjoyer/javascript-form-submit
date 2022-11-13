@@ -9,62 +9,7 @@ const table = document.querySelector(".table");
 
 btn.addEventListener("click", (e) => {
     e.preventDefault();
-
-    const fn = firstName.value;
-    const ln = lastName.value;
-    const ad = address.value;
-    const date = dob.value;
-    const sx = sex.value;
-    const note = notes.value;
-
-    if (!firstAndLastNameValidator(fn) || !firstAndLastNameValidator(ln) || !addressValidator(ad)) return;
-    
-    const row = table.insertRow(-1);
-    row.style.cursor = "pointer";
-
-    if (!localStorage.getItem("index")) localStorage.setItem("index", "-1");
-    localStorage.setItem("index", (parseInt(localStorage.getItem("index")) + 1).toString());
-
-    const objToSave = {
-        index: parseInt(localStorage.getItem("index")),
-        name: fn,
-        last: ln,
-        adrss: ad,
-        dateOB: date,
-        gender: sx,
-        comment: note,
-    }
-
-    localStorage.setItem(localStorage.getItem("index").concat("-data"), JSON.stringify(objToSave));
-
-    row.addEventListener("click", () => {
-        const popup = document.querySelector(".popup");
-        const noteContainer = document.querySelector(".note-container");
-        const textContainer = document.querySelector(".text-container");
-        const textNode = document.createTextNode(note);
-        if (noteContainer.childElementCount <= 2) textContainer.replaceChild(textNode, textContainer.firstChild);
-
-        const btn = document.querySelector(".popup-btn");
-        btn.addEventListener("click", () => {
-            popup.style.visibility = "hidden";
-            noteContainer.style.visibility = "hidden";
-
-        });
-
-        popup.style.visibility = "visible";
-        noteContainer.style.visibility = "visible";
-    });
-
-    let cell = row.insertCell(0);
-    let text = document.createTextNode(localStorage.getItem("index"));
-    cell.appendChild(text);
-
-    [fn, ln, ad, date, sx].forEach((element, i) => {
-        cell = row.insertCell(i + 1);
-        text = document.createTextNode(element);
-        cell.appendChild(text);
-    });
-
+    addRow(null, firstName.value, lastName.value, address.value, dob.value, sex.value, notes.value, table, true);
 });
 
 validateField(

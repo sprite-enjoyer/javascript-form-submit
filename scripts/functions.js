@@ -38,45 +38,79 @@ const loadFields = (fieldNodes, keys) => {
     })
 }
 
-const loadTableData = () => {
-    const table = document.querySelector(".table");
-    const dataList = [];
-    let index = localStorage.getItem("index");
-    for (let i = 0; i < parseInt(index); i++){
-        let item = localStorage.getItem(i.toString().concat("-data"));
-        if (item) dataList.push(JSON.parse(item));
+const addRow = (i, fn, ln, ad, date, sx, note, table, incrementIndex) => {
+
+    if (incrementIndex && 
+        (!firstAndLastNameValidator(fn) || !firstAndLastNameValidator(ln) || !addressValidator(ad))) return;
+    
+    const row = table.insertRow(-1);
+    row.style.cursor = "pointer";
+
+    if (incrementIndex){
+        if (!localStorage.getItem("index")) localStorage.setItem("index", "-1");
+        localStorage.setItem("index", (parseInt(localStorage.getItem("index")) + 1).toString());
+        const objToSave = {
+            index: parseInt(localStorage.getItem("index")),
+            name: fn,
+            last: ln,
+            adrss: ad,
+            dateOB: date,
+            gender: sx,
+            comment: note,
+        }
+    
+        localStorage.setItem(localStorage.getItem("index").concat("-data"), JSON.stringify(objToSave));
     }
 
-    dataList.forEach(obj => {
-        const row = table.insertRow(-1);
-        row.style.cursor = "pointer";
+    row.addEventListener("click", () => {
+        const popup = document.querySelector(".popup");
+        const noteContainer = document.querySelector(".note-container");
+        const textContainer = document.querySelector(".text-container");
+        const textNode = document.createTextNode(note);
+        
+        if (noteContainer.childElementCount <= 2) textContainer.replaceChild(textNode, textContainer.firstChild);
 
-        row.addEventListener("click", () => {
-            const popup = document.querySelector(".popup");
-            const noteContainer = document.querySelector(".note-container");
-            const textContainer = document.querySelector(".text-container");
-            const textNode = document.createTextNode(obj.comment);
-            if (noteContainer.childElementCount <= 2) textContainer.replaceChild(textNode, textContainer.firstChild);
-    
-            const btn = document.querySelector(".popup-btn");
-            btn.addEventListener("click", () => {
-                popup.style.visibility = "hidden";
-                noteContainer.style.visibility = "hidden";
-    
-            });
-    
-            popup.style.visibility = "visible";
-            noteContainer.style.visibility = "visible";
+        const btn = document.querySelector(".popup-btn");
+        btn.addEventListener("click", () => {
+            popup.style.visibility = "hidden";
+            noteContainer.style.visibility = "hidden";
+
         });
-    
-        let cell = row.insertCell(0);
-        let text = document.createTextNode(obj.index);
+
+        popup.style.visibility = "visible";
+        noteContainer.style.visibility = "visible";
+    });
+
+    let cell = row.insertCell(0);
+    let text = document.createTextNode(incrementIndex ? parseInt(localStorage.getItem("index")) : i);
+    cell.appendChild(text);
+
+    [fn, ln, ad, date, sx].forEach((element, i) => {
+        cell = row.insertCell(i + 1);
+        text = document.createTextNode(element);
         cell.appendChild(text);
-    
-        [obj.name, obj.last, obj.adrss, obj.dateOB, obj.gender].forEach((element, i) => {
-            cell = row.insertCell(i + 1);
-            text = document.createTextNode(element);
-            cell.appendChild(text);
-        })
-    })
+    });
+
 }
+
+const loadTableData = () => {
+    const dataList = []; 
+    for (let i = 0; i < parseInt(localStorage.getItem("index")) + 1; i++){
+        const item = localStorage.getItem(i.toString().concat("-data"));
+        if (item) dataList.push(JSON.parse(item));
+    }
+    dataList.forEach((obj, i) => 
+        addRow(
+            i, 
+            obj.name, 
+            obj.last, 
+            obj.adrss, 
+            obj.dateOB, 
+            obj.gender, 
+            obj.comment, 
+            document.querySelector(".table"), false
+            ));
+};
+
+
+
